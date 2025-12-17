@@ -1,0 +1,37 @@
+contract: is_prime
+version: v2
+
+domain:
+  inputs_must_satisfy:
+    - natural_number
+  total: true
+
+inputs:
+  number:
+    concept: natural_number
+
+outputs:
+  is_prime:
+    type: boolean
+
+guarantees:
+  semantic:
+    - >
+      For any input value that satisfies the concept [natural_number],
+      the contract determines whether the value satisfies the concept [prime_number].
+
+    - >
+      If the input value does not satisfy the concept [natural_number],
+      the behavior of this contract is undefined and outside the scope of this contract.
+
+    - >
+      The contract is deterministic: identical valid inputs always yield identical outputs.
+
+acceptance:
+  - scenario: Prime numbers are identified correctly
+    given: number satisfies the concept [prime_number]
+    then: is_prime is true
+
+  - scenario: Composite numbers are not prime
+    given: number satisfies the concept [composite_number]
+    then: is_prime is false

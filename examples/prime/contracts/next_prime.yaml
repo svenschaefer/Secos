@@ -1,0 +1,34 @@
+contract: next_prime
+version: v1
+
+inputs:
+  n:
+    concept: natural_number
+
+outputs:
+  p:
+    concept: prime_number
+
+guarantees:
+  semantic:
+    - >
+      The output p is a prime_number.
+    - >
+      p is strictly greater than the input n.
+    - >
+      For any prime_number q where q > n, p <= q.
+
+  domain:
+    - >
+      This contract is defined for all natural numbers n >= 0.
+
+  minimality:
+    - >
+      p is the smallest prime_number greater than n.
+
+acceptance:
+  examples:
+    - >
+      For n = 3, p = 5.
+    - >
+      For n = 10, p = 11.

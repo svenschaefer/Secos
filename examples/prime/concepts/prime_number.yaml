@@ -1,0 +1,8 @@
+concept: prime_number
+version: v2
+definition: >
+  A prime number is a natural number greater than 1 that has exactly two distinct
+  positive divisors: 1 and itself.
+
+  The numbers 0 and 1 are not prime.
+  Negative numbers and non-integer values are outside the domain of this concept.

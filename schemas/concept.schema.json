@@ -2,7 +2,6 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://example.org/schema/concept.json",
   "title": "Concept",
-  "description": "Defines a language-independent semantic concept. A Concept represents meaning, not behavior, structure, or implementation.",
   "type": "object",
   "required": [
     "concept",
@@ -12,36 +11,15 @@
   "properties": {
     "concept": {
       "type": "string",
-      "title": "Concept Identifier",
-      "description": "Canonical, language-independent identifier of the concept. This identifier represents meaning, not a word.",
-      "pattern": "^[a-z][a-z0-9_]*$",
-      "examples": [
-        "user",
-        "prime_number",
-        "rsa_keypair",
-        "order",
-        "invoice",
-        "payment"
-      ]
+      "pattern": "^[a-z][a-z0-9_]*$"
     },
     "version": {
       "type": "string",
-      "title": "Concept Version",
-      "description": "Immutable version of the concept definition. Once published, a version must not change.",
-      "pattern": "^v[0-9]+$",
-      "examples": [
-        "v1",
-        "v2"
-      ]
+      "pattern": "^v[0-9]+$"
     },
     "definition": {
       "type": "string",
-      "title": "Concept Definition",
-      "description": "Normative textual definition that specifies the meaning of the concept. This definition is authoritative.",
-      "minLength": 1,
-      "examples": [
-        "A natural person who has an identity in the system and can perform authenticated actions."
-      ]
+      "minLength": 1
     }
   },
   "additionalProperties": false

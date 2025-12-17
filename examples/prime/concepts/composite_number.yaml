@@ -1,0 +1,13 @@
+concept: composite_number
+version: v2
+definition: >
+  A composite number is a natural number greater than 1 that can be expressed
+  as the product of two natural numbers greater than 1.
+
+  Formally, a number n is composite if and only if there exist natural numbers
+  a and b such that a > 1, b > 1, and n = a × b.
+
+  Composite numbers have more than two distinct positive divisors.
+
+  The numbers 0 and 1 are neither prime nor composite.
+  Negative numbers and non-integer values are outside the domain of this concept.

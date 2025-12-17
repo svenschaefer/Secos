@@ -1,51 +1,54 @@
-import fs from "fs";
-import path from "path";
-import YAML from "yaml";
-import { Contract, Concept } from "./types.js";
+import { readFileSync, existsSync } from "fs";
+import { dirname, join } from "path";
+import { parse } from "yaml";
 
-const anchorRe = /\[([a-z][a-z0-9_]*)\]/g;
-
-export function collectConceptIds(contract: Contract): string[] {
-  const ids = new Set<string>();
-
-  for (const v of Object.values(contract.inputs || {})) {
-    if (v.concept) ids.add(v.concept);
-  }
-  for (const v of Object.values(contract.outputs || {})) {
-    if (v.concept) ids.add(v.concept);
-  }
-  for (const g of contract.guarantees.semantic || []) {
-    let m;
-    while ((m = anchorRe.exec(g)) !== null) {
-      ids.add(m[1]);
-    }
-  }
-
-  return [...ids].sort();
+export function collectConceptIds(value: any): Set<string> {
+  const refs = new Set<string>();
+  collect(value, refs);
+  return refs;
 }
 
-export function loadConcepts(
-  contractPath: string,
-  ids: string[]
-): Record<string, Concept> {
-  const contractDir = path.dirname(contractPath);
+function collect(value: any, refs: Set<string>) {
+  if (value == null) return;
 
-  if (!contractDir.endsWith("contracts")) {
-    throw new Error("Contract must be located in a 'contracts/' directory");
+  if (typeof value === "string") {
+    for (const m of value.matchAll(/\[([a-zA-Z0-9_]+)\]/g)) {
+      refs.add(m[1]);
+    }
+    return;
   }
 
-  const domainRoot = path.dirname(contractDir);
-  const conceptsDir = path.join(domainRoot, "concepts");
+  if (typeof value !== "object") return;
 
-  const out: Record<string, Concept> = {};
+  if (typeof (value as any).concept === "string") {
+    refs.add((value as any).concept);
+  }
+
+  for (const v of Object.values(value)) {
+    collect(v, refs);
+  }
+}
+
+export async function loadConcepts(contract: any, contractPath: string) {
+  const ids = collectConceptIds(contract);
+
+  // Contract identifier is never a concept
+  if (typeof contract.contract === "string") {
+    ids.delete(contract.contract);
+  }
+
+  const contractsDir = dirname(contractPath);
+  const domainDir = dirname(contractsDir);
+  const conceptsDir = join(domainDir, "concepts");
+
+  const concepts: Record<string, any> = {};
 
   for (const id of ids) {
-    const file = path.join(conceptsDir, `${id}.yaml`);
-    if (!fs.existsSync(file)) {
-      throw new Error(`Missing concept '${id}' at ${file}`);
-    }
-    out[id] = YAML.parse(fs.readFileSync(file, "utf8"));
+    const file = join(conceptsDir, `${id}.yaml`);
+    if (!existsSync(file)) continue;
+    const yaml = readFileSync(file, "utf-8");
+    concepts[id] = parse(yaml);
   }
 
-  return out;
+  return concepts;
 }

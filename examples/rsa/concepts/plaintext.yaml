@@ -1,0 +1,6 @@
+concept: plaintext
+version: v1
+
+definition:
+  A plaintext message represented as a natural number m
+  such that 0 <= m < n, where n is the RSA modulus.

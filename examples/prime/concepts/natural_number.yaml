@@ -1,0 +1,6 @@
+concept: natural_number
+version: v1
+definition: >
+  A natural number is a non-negative integer belonging to the set ℕ = {0, 1, 2, 3, ...}.
+  Natural numbers are discrete, whole-valued, and do not include negative numbers
+  or fractional values.

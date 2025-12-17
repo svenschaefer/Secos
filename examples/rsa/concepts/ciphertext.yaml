@@ -1,0 +1,6 @@
+concept: ciphertext
+version: v1
+
+definition:
+  A ciphertext produced by RSA encryption of a plaintext
+  using a specific rsa_public_key.

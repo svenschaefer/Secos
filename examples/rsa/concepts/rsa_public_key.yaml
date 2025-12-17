@@ -1,0 +1,9 @@
+concept: rsa_public_key
+version: v1
+
+definition:
+  An RSA public key consisting of a modulus n and a public exponent e.
+
+notes:
+  - n is the product of two distinct prime numbers.
+  - e is coprime to phi(n).

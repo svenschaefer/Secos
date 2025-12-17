@@ -1,0 +1,30 @@
+contract: rsa_encrypt
+version: v1
+
+inputs:
+  key:
+    concept: rsa_public_key
+  message:
+    concept: plaintext
+
+outputs:
+  encrypted:
+    concept: ciphertext
+
+guarantees:
+  semantic:
+    - >
+      The output encrypted is the RSA encryption of message
+      under the provided rsa_public_key.
+    - >
+      For a given key and message, the encryption result is deterministic.
+
+  domain:
+    - >
+      This contract is defined only if the plaintext message
+      is within the valid numeric range of the key modulus.
+
+assumptions:
+  - >
+    No padding scheme, randomness, or probabilistic behavior
+    is implied by this contract.

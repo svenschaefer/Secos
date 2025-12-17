@@ -1,0 +1,8 @@
+concept: prime_factor
+version: v1
+
+definition:
+  A prime_factor is a prime_number that divides a given natural_number.
+
+notes:
+  - Prime factors may appear multiple times in a factorization.

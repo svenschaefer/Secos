@@ -1,0 +1,36 @@
+contract: prime_factorization
+version: v1
+
+inputs:
+  n:
+    concept: natural_number
+
+outputs:
+  factors:
+    concept: prime_factorization
+
+guarantees:
+  semantic:
+    - >
+      The output factors form a prime_factorization of [n].
+    - >
+      The product of all elements in factors equals [n].
+    - >
+      Every element in factors is a prime_number.
+    - >
+      The factors are ordered in non-decreasing order.
+
+  domain:
+    - >
+      This contract is defined only for natural numbers n >= 2.
+
+  uniqueness:
+    - >
+      For any valid input n, the prime_factorization is unique.
+
+acceptance:
+  examples:
+    - >
+      For n = 12, factors = [2, 2, 3].
+    - >
+      For n = 13, factors = [13].
