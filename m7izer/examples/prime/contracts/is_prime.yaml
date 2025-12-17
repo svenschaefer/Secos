@@ -1,0 +1,11 @@
+contract: is_prime
+version: v1
+inputs:
+  n:
+    type: integer
+outputs:
+  is_prime:
+    type: boolean
+guarantees:
+  semantic:
+  - The contract determines whether a number satisfies the concept [prime_number].
