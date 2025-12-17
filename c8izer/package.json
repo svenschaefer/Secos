@@ -1,0 +1,22 @@
+{
+  "name": "c8izer",
+  "version": "0.1.0",
+  "type": "module",
+  "bin": {
+    "c8izer": "./dist/cli.js"
+  },
+  "scripts": {
+    "dev": "tsx src/cli.ts",
+    "build": "tsc",
+    "start": "node dist/cli.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "openai": "^4.0.0",
+    "yaml": "^2.4.2"
+  },
+  "devDependencies": {
+    "tsx": "^4.21.0",
+    "typescript": "^5.4.0"
+  }
+}
