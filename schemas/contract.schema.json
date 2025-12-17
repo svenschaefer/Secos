@@ -1,0 +1,131 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schema/contract.json",
+  "title": "Contract",
+  "description": "Defines a normative contract. A Contract expresses a commitment or guarantee independent of implementation or execution.",
+  "type": "object",
+  "required": [
+    "contract",
+    "version",
+    "inputs",
+    "outputs",
+    "guarantees"
+  ],
+  "properties": {
+    "contract": {
+      "type": "string",
+      "title": "Contract Identifier",
+      "description": "Canonical identifier of the contract. Identifies the obligation being defined.",
+      "pattern": "^[a-z][a-z0-9_]*$",
+      "examples": [
+        "is_prime",
+        "rsa_encrypt",
+        "create_order",
+        "generate_invoice",
+        "verify_payment"
+      ]
+    },
+    "version": {
+      "type": "string",
+      "title": "Contract Version",
+      "description": "Immutable version of the contract definition.",
+      "pattern": "^v[0-9]+$",
+      "examples": [
+        "v1"
+      ]
+    },
+    "inputs": {
+      "type": "object",
+      "title": "Inputs",
+      "description": "Required inputs for the contract. Inputs define the data required to evaluate the guarantees.",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "object",
+        "description": "An input parameter definition. Exactly one of 'type' or 'concept' must be provided.",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Primitive or structured data type identifier."
+          },
+          "concept": {
+            "type": "string",
+            "description": "Reference to a Concept identifier representing the semantic type of the input."
+          }
+        },
+        "oneOf": [
+          {
+            "required": [
+              "type"
+            ]
+          },
+          {
+            "required": [
+              "concept"
+            ]
+          }
+        ],
+        "additionalProperties": false
+      }
+    },
+    "outputs": {
+      "type": "object",
+      "title": "Outputs",
+      "description": "Required outputs produced by the contract.",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "object",
+        "description": "An output parameter definition. Exactly one of 'type' or 'concept' must be provided.",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Primitive or structured data type identifier."
+          },
+          "concept": {
+            "type": "string",
+            "description": "Reference to a Concept identifier representing the semantic type of the output."
+          }
+        },
+        "oneOf": [
+          {
+            "required": [
+              "type"
+            ]
+          },
+          {
+            "required": [
+              "concept"
+            ]
+          }
+        ],
+        "additionalProperties": false
+      }
+    },
+    "guarantees": {
+      "type": "object",
+      "title": "Guarantees",
+      "description": "Defines the normative guarantees this contract commits to.",
+      "required": [
+        "semantic"
+      ],
+      "properties": {
+        "semantic": {
+          "type": "array",
+          "title": "Semantic Guarantees",
+          "description": "Natural language statements describing what the contract guarantees. These statements are normative.",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "examples": [
+            [
+              "The contract determines whether a number satisfies the concept [prime_number]."
+            ]
+          ]
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
